@@ -3,7 +3,7 @@
 [![Github Actions Status](https://github.com/jupyterlab/extension-template/workflows/CI/badge.svg)](https://github.com/jupyterlab/extension-template/actions/workflows/main.yml)
 
 A [copier](https://copier.readthedocs.io) template for creating
-a e2xgrader cell extension. Four kinds of extension are supported:
+a JupyterLab extension. Four kinds of extension are supported:
 - _frontend_: Pure frontend extension written in TypeScript.
 - _mimerenderer_: MIME renderer extension.
 - _frontend-and-server_: Extension with frontend (in TypeScript) and backend (in Python) parts.
@@ -35,7 +35,7 @@ cd myextension
 3. Use copier to generate an extension, following the prompts to fill all required information.
 
 ```sh
-copier copy --trust https://github.com/e2xgrader/e2xgrader-cell-extension-template .
+copier copy --trust https://github.com/jupyterlab/extension-template .
 ```
 
 > If you are using Visual Studio Code, you may be interested in the
@@ -46,8 +46,12 @@ copier copy --trust https://github.com/e2xgrader/e2xgrader-cell-extension-templa
 If you'd like to generate an extension for a older release, use the `--vcs-ref` option and give a tag or commit from this repository.
 
 ```sh
-copier copy --vcs-ref v4.5.2 --trust https://github.com/e2xgrader/e2xgrader-cell-extension-template .
+copier copy --vcs-ref v4.0.0 --trust https://github.com/jupyterlab/extension-template .
 ```
+
+> If you are looking for a template compatible with JupyterLab version prior to 4.0.0, look at
+> the [cookiecutter template](https://github.com/jupyterlab/extension-cookiecutter-ts) or the
+> [mimerenderer template](https://github.com/jupyterlab/mimerender-cookiecutter-ts).
 
 ## Update an extension to the latest template version
 
