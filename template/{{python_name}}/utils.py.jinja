@@ -1,0 +1,10 @@
+from e2xgrader_core.cells.e2xgrader import (
+    get_e2xgrader_cell_type
+)
+
+
+def is_{{ simplified_cell_name }}(cell):
+    """
+    Check if the cell is a {{ cell_name }} cell.
+    """
+    return get_e2xgrader_cell_type(cell) == "{{ simplified_cell_name }}"

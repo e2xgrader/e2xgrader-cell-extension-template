@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "{{ python_name }}"
 readme = "README.md"
 license = { file = "LICENSE" }
-requires-python = ">=3.10"
+requires-python = ">=3.9"
 classifiers = [
     "Framework :: Jupyter",
     "Framework :: Jupyter :: JupyterLab",
@@ -18,14 +18,15 @@ classifiers = [
     "License :: OSI Approved :: BSD License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
 ]
-dependencies = [{% if kind.lower() == "frontend-and-server" %}
-    "jupyter_server>=2.4.0,<3"{% endif %}
+dependencies = [
+    "e2xgrader_core"
 ]
 dynamic = ["version", "description", "authors", "urls", "keywords"]
 {% if test and kind.lower() == 'frontend-and-server' %}
@@ -41,6 +42,16 @@ test = [
     "pytest-jupyter[server]>=0.6.0"
 ]
 {% endif %}
+
+[project.entry-points."e2xgrader.cell.filters"]
+{{ simplified_cell_name }}_filter = "{{ python_name }}.filters:{{ simplified_cell_name }}_filter"
+
+[project.entry-points."e2xgrader.cell.graders"]
+{{ simplified_cell_name }}_grader = "{{ python_name }}.graders:{{ simplified_cell_name }}_grader"
+
+[project.entry-points."e2xgrader.cell.preprocessors"]
+{{ simplified_cell_name }}_preprocessor = "{{ python_name }}.preprocessors:{{ simplified_cell_name }}_preprocessor"
+
 [tool.hatch.version]
 source = "nodejs"
 
@@ -91,3 +102,8 @@ before-build-python = ["jlpm clean:all"]
 
 [tool.check-wheel-contents]
 ignore = ["W002"]
+
+[tool.ruff]
+line-length = 100
+ignore-init-module-imports = true
+select = ["F", "E", "I"]

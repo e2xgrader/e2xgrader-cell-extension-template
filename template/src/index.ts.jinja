@@ -9,16 +9,27 @@ import { ISettingRegistry } from '@jupyterlab/settingregistry';{% endif %}{% if 
 
 import { requestAPI } from './request';{% endif %}
 
+import { E2xGraderCellRegistry } from '@e2xgrader/core';
+import { {{ simplified_cell_name }}CellPlugins } from './plugin';
+
 /**
  * Initialization data for the {{ labextension_name }} extension.
  */
 const plugin: JupyterFrontEndPlugin<void> = {
   id: '{{ labextension_name }}:plugin',
   description: '{{ project_short_description | replace("'", "\\'") }}',
-  autoStart: true,{% if kind.lower() == 'theme' %}
-  requires: [IThemeManager],{% endif %}{% if has_settings %}
+  autoStart: true,
+  requires: [{% if kind.lower() == 'theme' %}
+    IThemeManager,
+    {% endif %}E2xGraderCellRegistry.IE2xGraderCellRegistry
+  ],{% if has_settings %}
   optional: [ISettingRegistry],{% endif %}
-  activate: (app: JupyterFrontEnd{% if kind.lower() == 'theme' %}, manager: IThemeManager{% endif %}{% if has_settings %}, settingRegistry: ISettingRegistry | null{% endif %}) => {
+  activate: async (
+    app: JupyterFrontEnd{% if kind.lower() == 'theme' %},
+    manager: IThemeManager{% endif %}{% if has_settings %},
+    settingRegistry: ISettingRegistry | null{% endif %},
+    cellRegistry: E2xGraderCellRegistry.IE2xGraderCellRegistry
+  ) => {
     console.log('JupyterLab extension {{ labextension_name }} is activated!');{% if kind.lower() == 'theme' %}
     const style = '{{ labextension_name }}/index.css';
 
@@ -49,6 +60,11 @@ const plugin: JupyterFrontEndPlugin<void> = {
           `The {{ python_name }} server extension appears to be missing.\n${reason}`
         );
       });{% endif %}
+
+    // Register the {{ cell_name }} cell plugins
+    {{ simplified_cell_name }}CellPlugins.forEach(plugin => {
+      cellRegistry.registerPlugin(plugin);
+    });
   }
 };
 

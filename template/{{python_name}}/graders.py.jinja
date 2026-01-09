@@ -1,0 +1,24 @@
+from logging import Logger
+from typing import Optional, Tuple
+
+from e2xgrader_core.base.grader import BaseGrader
+from nbformat.notebooknode import NotebookNode
+
+
+class {{ camel_case_cell_name }}Grader(BaseGrader):
+    """
+    Grader for {{ cell_name }} cells.
+    """
+
+    def determine_grade(
+        self, cell: NotebookNode, log: Logger = None
+    ) -> Tuple[Optional[float], float]:
+        max_points = float(cell.metadata.get("nbgrader", {}).get("points"))
+
+        #todo: determine grade here
+
+        return 0.0, max_points
+
+
+
+{{ simplified_cell_name }}_grader: Tuple[str, BaseGrader] = ("{{ simplified_cell_name }}", {{ camel_case_cell_name }}Grader())

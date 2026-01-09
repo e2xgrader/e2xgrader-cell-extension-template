@@ -1,0 +1,32 @@
+from typing import Any, Callable, Dict, Tuple
+
+from bs4 import BeautifulSoup
+
+from .utils import (
+    is_{{ simplified_cell_name }}
+)
+
+def to_{{ cell_name | replace('-', '_') }}_cell(context: Dict[str, Any], source: str) -> str:
+    """Convert a cell to a {{ cell_name }} cell.
+
+    Args:
+        context (Dict[str, Any]): The context dictionary.
+        source (str): The source HTML string.
+    Returns:
+        str: The modified HTML string.
+    """
+    cell = context.get("cell", {})
+    soup = BeautifulSoup(source, "html.parser")
+
+    if not is_{{ simplified_cell_name }}(cell): #if the cell does not match this type, just return source
+        return source
+
+    #todo: modify soup here to influence rendering of the cell
+
+    return soup.prettify().replace("\n", "")
+
+
+{{ simplified_cell_name }}_filter: Tuple[str, Callable[[Any, str], str]] = (
+    "{{ simplified_cell_name }}",
+    to_{{ cell_name | replace('-', '_') }}_cell,
+)

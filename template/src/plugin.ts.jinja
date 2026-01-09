@@ -1,0 +1,33 @@
+import { E2xGraderCellRegistry, E2XMarkdownCell } from '@e2xgrader/core';
+
+import { Widget } from '@lumino/widgets';
+
+export namespace {{ camel_case_cell_name }}CellUtils {
+
+}
+
+export namespace {{ camel_case_cell_name }} {
+  export const E2X_{{ simplified_cell_name | upper }}_CELL_TYPE = '{{ simplified_cell_name }}';
+
+  export const cleanMetadata = {
+    type: E2X_{{ simplified_cell_name | upper }}_CELL_TYPE
+  } as Record<string, any>;
+
+  export function renderCell(widget: Widget, cell: E2XMarkdownCell): void {
+    console.log('Rendering {{ camel_case_cell_name }} cell:', cell);
+    const html = widget.node;
+
+    //todo: perform rendering operations here, by modifying DOM via "html" variable
+  }
+
+  export const cellPlugin: E2xGraderCellRegistry.IE2xGraderCellPlugin = {
+    cellType: E2X_{{ simplified_cell_name | upper }}_CELL_TYPE,
+    label: '{{ cell_name.split('-') | map('capitalize') | join(' ') }}',
+    renderCell: renderCell,
+    cleanMetadata: cleanMetadata
+  };
+}
+
+export const {{ simplified_cell_name }}CellPlugins = [
+  {{ camel_case_cell_name }}.cellPlugin
+];

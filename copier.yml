@@ -33,10 +33,29 @@ author_email:
     author_email must be a valid email address.
     {% endif %}
 
+cell_name:
+  type: str
+  help: How would you call/identify your new cell type? (input will be suffixed with "-cell" automatically)
+  placeholder: "super-fancy"
+  validator: >-
+    {% if not (cell_name | regex_search('^[^\s].*$')) %}
+    cell_name cannot be empty nor start with a blank character.
+    {% endif %}
+
+camel_case_cell_name:
+  type: str
+  when: False
+  default: "{{ cell_name.split('-') | map('capitalize') | join  }}"
+
+simplified_cell_name:
+  type: str
+  when: False
+  default: "{{ cell_name | replace('-', '') | replace('_', '') | lower }}"
+
 labextension_name:
   type: str
   help: JavaScript package name
-  default: "{% if kind == 'theme' %}mytheme{% else %}myextension{% endif %}"
+  default: "{% if kind == 'theme' %}mytheme{% else %}@e2xgrader/{{ cell_name }}-cell{% endif %}"
 
 python_name:
   type: str
