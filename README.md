@@ -1,4 +1,6 @@
-# JupyterLab extension template
+# e2xgrader Cell Extension Template
+
+This is a copier template for e2xgrader cell extensions.
 
 [![Github Actions Status](https://github.com/jupyterlab/extension-template/workflows/CI/badge.svg)](https://github.com/jupyterlab/extension-template/actions/workflows/main.yml)
 
