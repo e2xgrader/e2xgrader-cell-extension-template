@@ -57,7 +57,7 @@
         "watch:labextension": "jupyter labextension watch ."
     },
     "dependencies": {
-        "@e2xgrader/core": "file:../e2xgrader-core",
+        "@e2xgrader/core": "^0.1.0-a1",
         {% if kind.lower() != 'mimerenderer' %}"@jupyterlab/application": "^4.0.0"{% if kind.lower() == 'theme' %},
         "@jupyterlab/apputils": "^4.0.0"{% endif %}{% if kind.lower() == 'frontend-and-server' %},
         "@jupyterlab/coreutils": "^6.0.0",
