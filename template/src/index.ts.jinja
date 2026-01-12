@@ -26,9 +26,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
   optional: [ISettingRegistry],{% endif %}
   activate: async (
     app: JupyterFrontEnd{% if kind.lower() == 'theme' %},
-    manager: IThemeManager{% endif %}{% if has_settings %},
-    settingRegistry: ISettingRegistry | null{% endif %},
-    cellRegistry: E2xGraderCellRegistry.IE2xGraderCellRegistry
+    manager: IThemeManager{% endif %},
+    cellRegistry: E2xGraderCellRegistry.IE2xGraderCellRegistry{% if has_settings %},
+    settingRegistry: ISettingRegistry | null{% endif %}
   ) => {
     console.log('JupyterLab extension {{ labextension_name }} is activated!');{% if kind.lower() == 'theme' %}
     const style = '{{ labextension_name }}/index.css';
