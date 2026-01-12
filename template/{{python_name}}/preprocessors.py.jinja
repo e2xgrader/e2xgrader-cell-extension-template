@@ -72,7 +72,7 @@ class {{ camel_case_cell_name }}CellPreprocessor:
                 )
             )
             del cell.metadata["nbgrader"]["grade_id"]
-            return cell, resources
+        return cell, resources
 
         set_e2xgrader_metadata_value(
             cell,
