@@ -3,14 +3,14 @@ from typing import Tuple, Type
 from e2xgrader_base.cells.e2xgrader import set_e2xgrader_metadata_value
 from nbconvert.exporters.exporter import ResourcesDict
 from nbformat.notebooknode import NotebookNode
-from nbgrader.preprocessors import NbGraderPreprocessor
+from nbgrader.preprocessors import ClearSolutions
 
 
 class {{ camel_case_cell_name }}CellPreprocessor:
 
     @staticmethod
-    def clear_hidden_tests(
-        preprocessor: NbGraderPreprocessor,
+    def clear_solutions(
+        preprocessor: ClearSolutions,
         cell: NotebookNode,
         resources: ResourcesDict,
         cell_index: int,
@@ -19,7 +19,7 @@ class {{ camel_case_cell_name }}CellPreprocessor:
         Preprocess a cell to clear hidden tests.
 
         Args:
-            preprocessor (NbGraderPreprocessor): The preprocessor instance.
+            preprocessor (ClearSolutions): The preprocessor instance.
             cell (NotebookNode): The cell to preprocess.
             resources (ResourcesDict): The resources dictionary.
             cell_index (int): The index of the cell.
